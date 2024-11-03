@@ -1,0 +1,2 @@
+rootProject.name = 'admin'
+include 'cardscommons:Cards-Commons:0.0.1'
