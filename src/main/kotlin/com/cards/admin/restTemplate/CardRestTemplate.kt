@@ -15,7 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder
     private val HOST = "localhost:8080"
     private val restTemplate = RestTemplate()
 
-    fun findCardsNotRegistered(cardsNumbers : List<Long>, token: String): ResponseEntity<LongArray> {
+    fun findCardsNotRegistered(cardsNumbers : List<Long>, token: String): ResponseEntity<LongArray>? {
 
         val header = createHeader(token)
         val entity : HttpEntity<List<Long>> = HttpEntity(cardsNumbers, header);

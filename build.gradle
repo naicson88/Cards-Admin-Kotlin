@@ -27,6 +27,9 @@ dependencies {
 	implementation 'org.jetbrains.kotlin:kotlin-reflect'
 //	CRIA UMA PASTA LIBS E COLOCA O JAR DENTRO
 	implementation files('libs/Cards-Commons-0.0.1.jar')
+	implementation group: 'jakarta.validation', name: 'jakarta.validation-api', version: '3.1.0'
+
+
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.jetbrains.kotlin:kotlin-test-junit5'
