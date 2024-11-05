@@ -1,20 +1,20 @@
 package com.cards.admin.controller
 
-import com.cards.admin.restTemplate.CardRestTemplate
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
 import cardscommons.dto.CardYuGiOhAPI
 import com.cards.admin.dto.CardDTO
 import com.cards.admin.enums.RabbitMQueues
+import com.cards.admin.restTemplate.CardRestTemplate
 import com.cards.admin.service.CardService
 import com.cards.admin.service.RabbitMQService
 import jakarta.validation.Valid
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
 
 
 @RestController
 @RequestMapping("v1/admin/card")
+@CrossOrigin(origins = ["*"], maxAge = 3600)
 class CardController(
          val restTemplate: CardRestTemplate,
          val cardService: CardService,

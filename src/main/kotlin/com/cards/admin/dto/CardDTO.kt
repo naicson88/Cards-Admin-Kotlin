@@ -35,7 +35,4 @@ data class CardDTO(
 
         var cardsToBeRegistered: List<CardYuGiOhAPI>
 ) {
-        fun cardsToBeRegistered(cardsToBeRegistered: List<CardYuGiOhAPI>) {
-
-        }
 }
