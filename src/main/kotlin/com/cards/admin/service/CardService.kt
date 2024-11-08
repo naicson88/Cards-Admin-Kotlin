@@ -18,9 +18,7 @@ class CardService(
 
     fun getCardsToBeRegistered(cardsNotRegistered : List<Long> ) : List<CardYuGiOhAPI> {
         require(cardsNotRegistered.isNotEmpty()) {"Invalid Cards Not Registered"}
-        val cardToBeRegistered : List<CardYuGiOhAPI> = cardsNotRegistered.stream().map { apiCardsService.getCardOnYuGiOhAPI(it) }.toList()
-        println(cardToBeRegistered)
-        return cardToBeRegistered
+        return cardsNotRegistered.stream().map { apiCardsService.getCardOnYuGiOhAPI(it) }.toList()
     }
 
     fun addNewCardToDeck(card: CardDTO, token: String): CardDTO {

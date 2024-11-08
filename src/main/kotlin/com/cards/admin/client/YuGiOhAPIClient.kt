@@ -17,9 +17,7 @@ class YuGiOhAPIClient {
 
        client.newCall(request).execute().use { response ->
            if(!response.isSuccessful) throw IOException("Unexpected code $response")
-           val responseString = response.body!!.string()
-           println(responseString)
-           return responseString
+           return response.body!!.string()
        }
 
     }

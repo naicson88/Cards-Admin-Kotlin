@@ -18,6 +18,9 @@ class RabbitMQService(
         } catch (e : JsonProcessingException){
             e.printStackTrace()
             throw  e;
+        } catch (e: Exception) {
+            e.printStackTrace()
+            throw  e;
         }
     }
 }
