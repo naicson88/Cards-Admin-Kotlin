@@ -1,6 +1,7 @@
 package com.cards.admin.service
 
 import cardscommons.dto.CardYuGiOhAPI
+import cardscommons.dto.CollectionDeckDTO
 import cardscommons.dto.KonamiDeckDTO
 import cardscommons.dto.RelDeckCardsDTO
 import org.slf4j.Logger
@@ -18,15 +19,19 @@ class DeckService(
         logger.info("Creating new Konami Deck {}", konamiDeck.nome)
 
         val listRelDeckCards = apiService.getCardsOfADeck(konamiDeck.requestSource)
-        //It necessary to check if all cards are already registered in cards' table
+
         konamiDeck.relDeckCards = listRelDeckCards
         konamiDeck.relDeckCards.forEach { it.isSpeedDuel = konamiDeck.isSpeedDuel }
-        //konamiDeck.cardsToBeRegistered = checkCardsNotRegistered(listRelDeckCards, token)
+        //It necessary to check if all cards are already registered in cards' table
+        konamiDeck.cardsToBeRegistered = checkCardsNotRegistered(listRelDeckCards, token)
 
         return konamiDeck
     }
 
-    fun checkCardsNotRegistered(listRelDeckCards: List<RelDeckCardsDTO>, token: String) : List<CardYuGiOhAPI> ? {
+    fun checkCardsNotRegistered(listRelDeckCards: List<RelDeckCardsDTO> ?, token: String) : List<CardYuGiOhAPI> ? {
+        if(listRelDeckCards.isNullOrEmpty())
+            return null
+
         val cardsNotRegistered: LongArray ? = cardService.verifyCardsNotRegistered(listRelDeckCards, token)  //71
 
         val distinctCards =  cardsNotRegistered?.asList()?.distinct()?.toList() ?: return null
@@ -34,4 +39,5 @@ class DeckService(
         return cardService.getCardsToBeRegistered(distinctCards)
 
     }
+
 }

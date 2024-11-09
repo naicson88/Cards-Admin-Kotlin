@@ -1,5 +1,6 @@
 package com.cards.admin.controller
 
+import cardscommons.dto.CollectionDeckDTO
 import cardscommons.dto.KonamiDeckDTO
 import com.cards.admin.enums.RabbitMQueues
 import com.cards.admin.service.DeckService
