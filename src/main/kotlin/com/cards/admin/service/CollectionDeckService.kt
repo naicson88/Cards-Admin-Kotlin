@@ -3,13 +3,12 @@ package com.cards.admin.service
 import cardscommons.dto.CollectionDeckDTO
 import cardscommons.dto.RelDeckCardsDTO
 import org.springframework.stereotype.Service
-import java.util.Date
+import java.util.*
 
 @Service
 class CollectionDeckService(
         val apiService: YuGiOhAPICardsService,
         val deckService: DeckService,
-        val cardService: CardService
         ) {
 
     fun createNewCollectionDeck(collDeck: CollectionDeckDTO, token: String): CollectionDeckDTO {
