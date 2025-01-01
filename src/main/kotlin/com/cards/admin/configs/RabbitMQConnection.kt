@@ -9,12 +9,9 @@ import org.springframework.amqp.core.Queue
 import org.springframework.stereotype.Component
 
 @Component
-class RabbitMQConnection {
+class RabbitMQConnection(val admin: AmqpAdmin) {
 
     val NOME_EXCHANGE = "amq.direct"
-    var amqAdmin: AmqpAdmin ?= null
-
-    fun RabbitMQConnection(admin: AmqpAdmin){this.amqAdmin = admin}
 
     private fun queue(queueName: String): Queue {
         return Queue(queueName, true, false, false)
@@ -36,9 +33,9 @@ class RabbitMQConnection {
     }
 
     fun declareCreation(queue: Queue, exchange: DirectExchange, binding: Binding) {
-        this.amqAdmin?.declareQueue(queue)
-        this.amqAdmin?.declareExchange(exchange)
-        this.amqAdmin?.declareBinding(binding)
+        admin.declareQueue(queue)
+        admin.declareExchange(exchange)
+        admin.declareBinding(binding)
 
     }
 
