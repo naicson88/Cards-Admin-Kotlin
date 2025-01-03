@@ -23,7 +23,7 @@ class DeckService(
         konamiDeck.relDeckCards = listRelDeckCards
         konamiDeck.relDeckCards.forEach { it.isSpeedDuel = konamiDeck.isSpeedDuel }
         //It necessary to check if all cards are already registered in cards' table
-     //   konamiDeck.cardsToBeRegistered = checkCardsNotRegistered(listRelDeckCards, token)
+        konamiDeck.cardsToBeRegistered = checkCardsNotRegistered(listRelDeckCards, token)
 
         return konamiDeck
     }

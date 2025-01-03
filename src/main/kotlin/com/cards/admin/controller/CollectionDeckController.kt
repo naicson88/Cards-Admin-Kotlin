@@ -1,6 +1,7 @@
 package com.cards.admin.controller
 
 import cardscommons.dto.CollectionDeckDTO
+import com.cards.admin.data.strategy.MessageBrokerStrategy
 import com.cards.admin.enums.RabbitMQueues
 import com.cards.admin.service.CollectionDeckService
 import com.cards.admin.service.RabbitMQService
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*
 @CrossOrigin(origins = ["*"], maxAge = 3600)
 class CollectionDeckController(
         val collService: CollectionDeckService,
-        val rabbitMQService: RabbitMQService
+        val messageBroker: MessageBrokerStrategy
 ) {
 
 
@@ -25,7 +26,7 @@ class CollectionDeckController(
 
         val collDeckCreated = collService.createNewCollectionDeck(collDeck, token)
 
-        rabbitMQService.sendMessageAsJson(RabbitMQueues.DECK_COLLECTION_QUEUE.toString(), collDeckCreated)
+        messageBroker.sendMessage(RabbitMQueues.DECK_COLLECTION_QUEUE.toString(), collDeckCreated)
 
         return ResponseEntity(collDeckCreated, HttpStatus.CREATED)
     }
@@ -36,7 +37,7 @@ class CollectionDeckController(
         @RequestHeader("Authorization") token: String
     ) : ResponseEntity<String> {
         val newYugipediaDeck = collService.createNewDeckCollectionYugipedia(collDeck, token)
-        rabbitMQService.sendMessageAsJson(RabbitMQueues.DECK_COLLECTION_QUEUE.toString(), newYugipediaDeck)
+        messageBroker.sendMessage(RabbitMQueues.DECK_COLLECTION_QUEUE.toString(), newYugipediaDeck)
         return ResponseEntity("Deck Collection Yugipedia created", HttpStatus.CREATED)
     }
 }

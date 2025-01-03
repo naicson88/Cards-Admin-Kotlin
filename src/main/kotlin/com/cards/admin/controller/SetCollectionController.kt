@@ -2,6 +2,7 @@ package com.cards.admin.controller
 
 import cardscommons.dto.AssociationDTO
 import cardscommons.dto.SetCollectionDTO
+import com.cards.admin.data.strategy.MessageBrokerStrategy
 import com.cards.admin.enums.RabbitMQueues
 import com.cards.admin.service.RabbitMQService
 import com.cards.admin.service.SetCollectionService
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("v1/admin/set-collection")
 @CrossOrigin(origins = ["*"], maxAge = 3600)
-class SetCollectionController(val rabbitMQService: RabbitMQService, val service: SetCollectionService) {
+class SetCollectionController(val messageBroker: MessageBrokerStrategy, val service: SetCollectionService) {
 
     var logger = LoggerFactory.getLogger(SetCollectionController::class.java)
 
@@ -23,7 +24,7 @@ class SetCollectionController(val rabbitMQService: RabbitMQService, val service:
     fun newSetCollection(@Valid @RequestBody dto: SetCollectionDTO, @RequestHeader("Authorization") token: String) :
             ResponseEntity<SetCollectionDTO> {
         logger.info("Starting creating new SetCollection...")
-        rabbitMQService.sendMessageAsJson(RabbitMQueues.SET_COLLECTION_QUEUE.toString(), dto)
+        messageBroker.sendMessage(RabbitMQueues.SET_COLLECTION_QUEUE.toString(), dto)
         logger.info("Message sent successfully to SET_COLLECTION Queue")
 
         return ResponseEntity(dto, HttpStatus.OK)

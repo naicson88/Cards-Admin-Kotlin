@@ -1,6 +1,7 @@
 package com.cards.admin.controller
 
 import cardscommons.dto.CardYuGiOhAPI
+import com.cards.admin.data.strategy.MessageBrokerStrategy
 import com.cards.admin.dto.CardDTO
 import com.cards.admin.enums.RabbitMQueues
 import com.cards.admin.restTemplate.CardRestTemplate
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.*
 class CardController(
          val restTemplate: CardRestTemplate,
          val cardService: CardService,
-         val rabbitMQService: RabbitMQService
+         val messageBroker: MessageBrokerStrategy
 ) {
 
     @PostMapping("/search-cards")
@@ -37,7 +38,7 @@ class CardController(
     fun addNewCardToDeck(@Valid @RequestBody cardDto : CardDTO, token: String) : ResponseEntity<CardDTO> {
         val cardAdded = cardService.addNewCardToDeck(cardDto, token)
 
-        rabbitMQService.sendMessageAsJson(RabbitMQueues.CARD_QUEUE.toString(), cardAdded)
+        messageBroker.sendMessage(RabbitMQueues.CARD_QUEUE.toString(), cardAdded)
 
         return ResponseEntity(cardAdded, HttpStatus.CREATED)
     }
