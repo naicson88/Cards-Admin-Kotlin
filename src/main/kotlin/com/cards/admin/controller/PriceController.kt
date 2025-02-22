@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("v1/admin/price")
 @CrossOrigin(origins = ["*"], maxAge = 3600)
 class PriceController(
-        val messageBroker: MessageBrokerStrategy
+        val messageBroker: MessageBrokerStrategy,
         val priceService: PriceService
     ) {
 
