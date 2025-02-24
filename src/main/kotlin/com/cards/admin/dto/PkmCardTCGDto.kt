@@ -9,7 +9,8 @@ class PkmCardTCGDto (
     val weaknesses: List<PkmWeaknesses>?,
     val retreatCost: List<String>?,
     val flavorText: String?,
-    val images: PkmImages?
+    val images: PkmImages,
+    val subtypes: List<String>
 ) {
 }
 
@@ -27,6 +28,6 @@ class PkmWeaknesses(
     ){}
 
 class PkmImages(
-    val small: String?,
-    val large: String?
+    val small: String,
+    val large: String
 ){}

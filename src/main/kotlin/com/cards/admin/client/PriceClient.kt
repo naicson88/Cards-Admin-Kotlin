@@ -18,7 +18,6 @@ class PriceClient {
             if(!response.isSuccessful) throw IOException("Unexpected code $response")
             return response.body!!.string()
         }
-
     }
 
     fun getCardPrice(cardName: String) : String ? {
