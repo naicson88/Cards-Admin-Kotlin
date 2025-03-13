@@ -1,6 +1,7 @@
 package com.cards.admin.controller
 
 import com.cards.admin.dto.PkmCardDTODjango
+import com.cards.admin.dto.PkmCardTCGDto
 import com.cards.admin.service.PkmCardTCGService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -15,6 +16,13 @@ class PkmCardTCGController(val service: PkmCardTCGService) {
     fun createDeck(@PathVariable apiId: String
     ) : ResponseEntity<PkmCardDTODjango> {
         val card = service.createCard(apiId)
+        return ResponseEntity(card, HttpStatus.CREATED)
+    }
+
+    @PostMapping("/cards/{pkmName}/{pkmId}")
+    fun createCardsByPkmName(@PathVariable pkmName: String, @PathVariable pkmId: Int
+    ) : ResponseEntity<HashMap<String, PkmCardDTODjango>> {
+        val card = service.createCardsByPkmName(pkmName, pkmId)
         return ResponseEntity(card, HttpStatus.CREATED)
     }
 }

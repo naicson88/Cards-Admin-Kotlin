@@ -9,6 +9,7 @@ import java.io.IOException
 class PkmCardTCGApi {
 
     private val apiUrl = "https://api.pokemontcg.io/v2/cards/"
+    private val apiUrlMultipleCards = "https://api.pokemontcg.io/v2/cards?q=name"
     private val client = OkHttpClient()
 
     fun getCard(apiId: String) : String ? {
@@ -20,4 +21,13 @@ class PkmCardTCGApi {
         }
 
     }
-}
+
+    fun getMultipleCards(pkmName:String) : String {
+        val request = Request.Builder().url("${apiUrlMultipleCards}:${pkmName}").build();
+
+        client.newCall(request).execute().use { response ->
+            if(!response.isSuccessful) throw IOException("Unexpected code $response")
+            return response.body!!.string()
+        }
+    }
+ }
